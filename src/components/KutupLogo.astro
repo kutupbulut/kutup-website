@@ -1,0 +1,28 @@
+---
+// The three-diamond mark is a kutup brand asset — reproduced verbatim from the
+// main repo's KutupLogo.tsx. The AGPL covering the code does not grant rights
+// to the artwork; do not recolor or modify it (see TRADEMARK in the kutup repo).
+interface Props {
+  size?: number
+  class?: string
+}
+const { size = 36, class: className } = Astro.props
+const scale = size / 44
+---
+
+<svg
+  width={56 * scale}
+  height={44 * scale}
+  viewBox="0 0 56 44"
+  fill="none"
+  class={className}
+  role="img"
+  aria-label="Kutup logo"
+>
+  <!-- Left — small, deep blue -->
+  <polygon points="10,13 16,22 10,31 4,22" fill="#0369a1"></polygon>
+  <!-- Center — large, bright glacier -->
+  <polygon points="28,8 37,22 28,36 19,22" fill="#38bdf8"></polygon>
+  <!-- Right — medium, pale ice -->
+  <polygon points="46,11 53,22 46,33 39,22" fill="#7dd3fc"></polygon>
+</svg>

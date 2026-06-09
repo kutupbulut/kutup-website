@@ -1,0 +1,206 @@
+---
+import Base from '../layouts/Base.astro'
+import Section from '../components/Section.astro'
+import Screenshot from '../components/Screenshot.astro'
+import CodeBlock from '../components/CodeBlock.astro'
+import Button from '../components/Button.astro'
+import { LINKS } from '../consts'
+
+const sections = [
+  {
+    id: 'drive',
+    eyebrow: 'Drive',
+    title: 'Files and folders the server can’t read',
+    img: '/screenshots/01-drive.png',
+    alt: 'Kutup Drive file browser',
+    points: [
+      'Nested collections with drag-and-drop upload and a hard-baked encryption boundary.',
+      'Filenames, MIME types, and folder structure are all encrypted client-side.',
+      'Public share links and per-user folder shares with granular read / upload / delete permissions.',
+      'Stream upload via crypto_secretstream_xchacha20poly1305 keeps large files out of memory.',
+      'Storage backs onto SeaweedFS (S3-compatible).',
+    ],
+  },
+  {
+    id: 'notes',
+    eyebrow: 'Notes & code',
+    title: 'Real-time text editing with presence',
+    img: '/screenshots/02-notes-editor.png',
+    alt: 'CodeMirror notes editor',
+    points: [
+      'CodeMirror 6 + Yjs CRDT for Markdown, plain text, and 20+ code languages (Go, TS, Rust, Python, C/C++, Java, Shell, …).',
+      'Multi-user cursors and selection presence, with an awareness color each user picks.',
+      'Every edit is a Yjs binary update wrapped in an AEAD envelope — the server only ever sees opaque ciphertext.',
+    ],
+  },
+  {
+    id: 'office',
+    eyebrow: 'Office documents',
+    title: '.docx, .xlsx, .pptx — encrypted, in the browser',
+    img: '/screenshots/03-xlsx.png',
+    alt: 'OnlyOffice spreadsheet editor',
+    points: [
+      'OnlyOffice runs entirely client-side using the CryptPad pattern; document state is never decrypted server-side.',
+      'Live cell-selection presence shown as translucent colored ranges, with per-user colors and multi-tab differentiation.',
+      'Full conditional formatting, formulas, and charts.',
+    ],
+  },
+  {
+    id: 'whiteboards',
+    eyebrow: 'Whiteboards',
+    title: 'Excalidraw canvases that sync live',
+    img: '/screenshots/04-whiteboard.png',
+    alt: 'Excalidraw whiteboard',
+    points: [
+      '.excalidraw files open in the embedded Excalidraw editor with cross-tab sync.',
+      'Last-write-wins reconciliation per element via versionNonce.',
+      'Same end-to-end-encrypted envelope as every other file type.',
+    ],
+  },
+  {
+    id: 'versions',
+    eyebrow: 'Version history',
+    title: 'Snapshot and restore any file',
+    img: '/screenshots/05-version-history.png',
+    alt: 'Version history sidebar',
+    points: [
+      'Every save creates a versioned snapshot, browsable from the History sidebar in any editor.',
+      'Named “Save version” entries are kept forever; anonymous saves age out (30 days or 50 versions, whichever yields more).',
+      'The endpoint is file-type-agnostic — notes, office, and whiteboards all use the same plumbing.',
+    ],
+  },
+  {
+    id: 'keys',
+    eyebrow: 'Keys & devices',
+    title: 'You hold the only keys',
+    img: '/screenshots/06-settings.png',
+    alt: 'Settings — devices and presence color',
+    points: [
+      'Per-device Ed25519 keypairs, each individually revocable.',
+      'A 24-word BIP39 recovery phrase that doubles as the second factor for account recovery — never sent to the server.',
+      'Optional TOTP 2FA, and a presence color that follows you across editors and tabs.',
+    ],
+  },
+]
+---
+
+<Base
+  title="Features"
+  description="Drive, live notes & code, OnlyOffice documents, Excalidraw whiteboards, version history, federation, and a fully E2EE CLI — everything Kutup does."
+>
+  <section class="bg-glacier border-b border-border">
+    <div class="mx-auto max-w-3xl px-6 py-16 text-center sm:py-24">
+      <p class="text-sm font-semibold uppercase tracking-widest text-ice">Features</p>
+      <h1 class="mt-3 text-balance text-4xl font-bold tracking-tight text-fg sm:text-5xl">
+        Everything encrypted, nothing compromised
+      </h1>
+      <p class="mx-auto mt-5 max-w-2xl text-pretty text-lg text-muted">
+        Kutup pairs a zero-knowledge server with real-time collaboration across
+        every file type. Here’s how each piece works.
+      </p>
+    </div>
+  </section>
+
+  {
+    sections.map((s, i) => (
+      <Section id={s.id} class={i % 2 === 1 ? 'border-y border-border bg-surface' : ''}>
+        <div class="grid items-center gap-8 lg:grid-cols-2 lg:gap-14">
+          <div class={i % 2 === 1 ? 'lg:order-2' : ''}>
+            <p class="text-sm font-semibold uppercase tracking-widest text-ice">{s.eyebrow}</p>
+            <h2 class="mt-2 text-3xl font-bold tracking-tight text-fg">{s.title}</h2>
+            <ul class="mt-5 space-y-3">
+              {s.points.map((p) => (
+                <li class="flex gap-3 text-pretty text-muted">
+                  <span class="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-ice" />
+                  <span>{p}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div class={i % 2 === 1 ? 'lg:order-1' : ''}>
+            <Screenshot src={s.img} alt={s.alt} />
+          </div>
+        </div>
+      </Section>
+    ))
+  }
+
+  <!-- Federation -->
+  <Section
+    id="federation"
+    eyebrow="Federation"
+    title="Share across servers without sharing trust"
+    subtitle="Invite someone on a different Kutup instance to a folder. Both backends route ciphertext; neither ever sees plaintext."
+  >
+    <div class="mx-auto mt-10 max-w-2xl rounded-2xl border border-border bg-surface p-8 text-center">
+      <p class="text-muted">
+        Federation invite links are built from each instance’s public
+        <code class="mx-1 rounded bg-surface-2 px-1.5 py-0.5 font-mono text-sm text-ice">SERVER_URL</code>.
+        Cross-server collaboration uses the same per-frame AEAD envelope and
+        Ed25519 signatures as local editing — the encryption boundary doesn’t
+        move just because a second server is involved.
+      </p>
+    </div>
+  </Section>
+
+  <!-- CLI -->
+  <section class="border-y border-border bg-surface">
+    <Section
+      id="cli"
+      eyebrow="Command line"
+      title="The same E2EE primitives, in your shell"
+      subtitle="kutup is a Cobra-based CLI for login, ls, upload, download, sync, share, versions, devices, and 2FA — all end-to-end encrypted. The server only ever sees ciphertext."
+    >
+      <div class="mx-auto mt-10 grid max-w-4xl gap-6 lg:grid-cols-2">
+        <div>
+          <h3 class="text-lg font-semibold text-fg">Install</h3>
+          <div class="mt-3">
+            <CodeBlock
+              lang="sh"
+              code="go install github.com/kutupbulut/kutup/cmd/kutup@latest"
+            />
+          </div>
+          <p class="mt-4 text-sm text-muted">
+            Tagged release binaries (Linux / macOS / Windows; amd64 + arm64) are
+            published on GitHub Releases via goreleaser.
+          </p>
+        </div>
+        <div>
+          <h3 class="text-lg font-semibold text-fg">Common workflows</h3>
+          <div class="mt-3">
+            <CodeBlock
+              lang="sh"
+              code={`kutup login --server https://your.kutup.host
+kutup ls
+kutup upload ./big-dataset.tar.gz <folder-id>
+kutup sync ./local-folder <folder-id> --watch
+kutup versions restore <file-id> <version-id>`}
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="mx-auto mt-8 max-w-4xl rounded-2xl border border-ice/40 bg-ink p-6">
+        <p class="text-sm font-semibold uppercase tracking-widest text-ice">The standout: &gt; 2 GB uploads</p>
+        <p class="mt-2 text-pretty text-muted">
+          The browser File API wedges the tab at multi-GB sizes. The CLI streams
+          chunked stream-encryption (5 MB blocks) over Go’s
+          <code class="mx-1 rounded bg-surface-2 px-1.5 py-0.5 font-mono text-sm text-ice">io.Reader</code>,
+          so it pushes arbitrarily large files — ISOs, raw video, datasets — at a
+          constant ~5 MB of memory. File size is bounded by disk, not RAM.
+        </p>
+      </div>
+    </Section>
+  </section>
+
+  <section class="bg-glacier">
+    <div class="mx-auto max-w-3xl px-6 py-16 text-center">
+      <h2 class="text-3xl font-bold tracking-tight text-fg">Ready to try it?</h2>
+      <div class="mt-6 flex flex-wrap justify-center gap-3">
+        <Button href="/self-host" size="lg">Self-host Kutup</Button>
+        <Button href="/download" size="lg" variant="secondary">Download apps</Button>
+        <Button href={LINKS.docs} size="lg" variant="ghost" external>Read the docs ↗</Button>
+      </div>
+    </div>
+  </section>
+</Base>

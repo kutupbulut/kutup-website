@@ -1,0 +1,10 @@
+# Cloudflare Pages redirects. One rule per line: <from> <to> <status>
+# https://developers.cloudflare.com/pages/configuration/redirects/
+
+# Vanity shortlinks
+/github   https://github.com/kutupbulut/kutup       302
+/docs     https://docs.kutup.dev                    302
+/releases https://github.com/kutupbulut/kutup/releases 302
+
+# Note: the apex vs. www canonical redirect for kutup.dev is configured in the
+# Cloudflare dashboard (Pages custom domains / bulk redirects), not here.

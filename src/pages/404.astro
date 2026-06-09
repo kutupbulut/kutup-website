@@ -1,0 +1,25 @@
+---
+import Base from '../layouts/Base.astro'
+import Button from '../components/Button.astro'
+import KutupLogo from '../components/KutupLogo.astro'
+---
+
+<Base title="Page not found" description="The page you were looking for doesn’t exist.">
+  <section class="bg-glacier">
+    <div class="mx-auto flex min-h-[60vh] max-w-2xl flex-col items-center justify-center px-6 py-24 text-center">
+      <KutupLogo size={48} />
+      <p class="mt-8 text-sm font-semibold uppercase tracking-widest text-ice">404</p>
+      <h1 class="mt-3 text-balance text-4xl font-bold tracking-tight text-fg sm:text-5xl">
+        This page is encrypted beyond recovery
+      </h1>
+      <p class="mt-4 max-w-md text-pretty text-muted">
+        We couldn’t find what you were looking for. It may have moved, or never
+        existed.
+      </p>
+      <div class="mt-8 flex flex-wrap justify-center gap-3">
+        <Button href="/" size="lg">Back home</Button>
+        <Button href="/features" size="lg" variant="secondary">Browse features</Button>
+      </div>
+    </div>
+  </section>
+</Base>

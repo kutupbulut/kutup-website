@@ -1,0 +1,23 @@
+---
+interface Props {
+  src: string
+  alt: string
+  class?: string
+  loading?: 'lazy' | 'eager'
+}
+const { src, alt, class: className = '', loading = 'lazy' } = Astro.props
+---
+
+<figure
+  class={`overflow-hidden rounded-xl border border-border bg-surface-2 shadow-2xl shadow-black/40 ${className}`}
+>
+  <img
+    src={src}
+    alt={alt}
+    loading={loading}
+    decoding="async"
+    class="block w-full"
+    width="1600"
+    height="1000"
+  />
+</figure>

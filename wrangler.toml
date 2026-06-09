@@ -1,0 +1,5 @@
+# Cloudflare Pages project config — used for `wrangler pages deploy`.
+# The custom domain (kutup.dev) is attached in the Cloudflare dashboard.
+name = "kutup-website"
+pages_build_output_dir = "dist"
+compatibility_date = "2025-06-09"

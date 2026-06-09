@@ -1,0 +1,41 @@
+---
+interface Props {
+  id?: string
+  eyebrow?: string
+  title?: string
+  subtitle?: string
+  class?: string
+  align?: 'left' | 'center'
+}
+
+const {
+  id,
+  eyebrow,
+  title,
+  subtitle,
+  class: className = '',
+  align = 'center',
+} = Astro.props
+const alignClass = align === 'center' ? 'text-center mx-auto' : 'text-left'
+---
+
+<section id={id} class={`mx-auto w-full max-w-6xl px-6 py-16 sm:py-24 ${className}`}>
+  {
+    (eyebrow || title || subtitle) && (
+      <div class={`max-w-2xl ${alignClass}`}>
+        {eyebrow && (
+          <p class="mb-3 text-sm font-semibold uppercase tracking-widest text-ice">
+            {eyebrow}
+          </p>
+        )}
+        {title && (
+          <h2 class="text-balance text-3xl font-bold tracking-tight text-fg sm:text-4xl">
+            {title}
+          </h2>
+        )}
+        {subtitle && <p class="mt-4 text-pretty text-lg text-muted">{subtitle}</p>}
+      </div>
+    )
+  }
+  <slot />
+</section>
