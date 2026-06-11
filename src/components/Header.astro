@@ -1,21 +1,32 @@
 ---
 import KutupLogo from './KutupLogo.astro'
 import ThemeToggle from './ThemeToggle.astro'
+import LocaleSwitch from './LocaleSwitch.astro'
 import MobileNav from './islands/MobileNav.tsx'
-import { NAV, LINKS } from '../consts'
+import { LINKS } from '../consts'
+import { localePath, type Locale } from '../i18n/config'
+import { getDict } from '../i18n'
 
-const items = NAV.map((n) => ({
-  label: n.label,
-  href: n.href,
-  external: 'external' in n ? n.external : false,
-}))
+interface Props {
+  locale: Locale
+}
+const { locale } = Astro.props
+const t = getDict(locale)
+
+const items = [
+  { label: t.nav.features, href: localePath(locale, '/features'), external: false },
+  { label: t.nav.download, href: localePath(locale, '/download'), external: false },
+  { label: t.nav.selfHost, href: localePath(locale, '/self-host'), external: false },
+  { label: t.nav.instances, href: localePath(locale, '/instances'), external: false },
+  { label: t.nav.docs, href: LINKS.docs, external: true },
+]
 ---
 
 <header
   class="sticky top-0 z-50 border-b border-border/70 bg-ink/80 backdrop-blur supports-[backdrop-filter]:bg-ink/60"
 >
   <div class="relative mx-auto flex max-w-6xl items-center justify-between px-6 py-3">
-    <a href="/" class="flex items-center gap-2.5" aria-label="Kutup home">
+    <a href={localePath(locale, '/')} class="flex items-center gap-2.5" aria-label="Kutup home">
       <KutupLogo size={30} />
       <span class="text-lg font-semibold tracking-tight text-fg">Kutup</span>
     </a>
@@ -37,7 +48,8 @@ const items = NAV.map((n) => ({
     </nav>
 
     <div class="flex items-center gap-2">
-      <ThemeToggle />
+      <LocaleSwitch locale={locale} label={t.header.switchLanguage} />
+      <ThemeToggle label={t.header.switchTheme} />
       <a
         href={LINKS.github}
         target="_blank"
@@ -47,10 +59,10 @@ const items = NAV.map((n) => ({
         GitHub ↗
       </a>
       <a
-        href="/download"
+        href={localePath(locale, '/download')}
         class="hidden items-center justify-center rounded-lg bg-ice px-4 py-2 text-sm font-medium text-ink transition-colors hover:bg-pale md:inline-flex"
       >
-        Get Kutup
+        {t.header.getKutup}
       </a>
       <MobileNav client:load items={items} githubUrl={LINKS.github} />
     </div>

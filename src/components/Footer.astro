@@ -1,43 +1,50 @@
 ---
 import KutupLogo from './KutupLogo.astro'
 import { LINKS } from '../consts'
+import { fill, localePath, type Locale } from '../i18n/config'
+import { getDict } from '../i18n'
+
+interface Props {
+  locale: Locale
+}
+const { locale } = Astro.props
+const t = getDict(locale)
 
 const year = new Date().getFullYear()
 
 const columns = [
   {
-    title: 'Product',
+    title: t.footer.product,
     links: [
-      { label: 'Features', href: '/features' },
-      { label: 'Download', href: '/download' },
-      { label: 'Self-host', href: '/self-host' },
-      { label: 'Instances', href: '/instances' },
+      { label: t.nav.features, href: localePath(locale, '/features') },
+      { label: t.nav.download, href: localePath(locale, '/download') },
+      { label: t.nav.selfHost, href: localePath(locale, '/self-host') },
+      { label: t.nav.instances, href: localePath(locale, '/instances') },
     ],
   },
   {
-    title: 'Resources',
+    title: t.footer.resources,
     links: [
-      { label: 'Documentation', href: LINKS.docs, external: true },
+      { label: t.footer.documentation, href: LINKS.docs, external: true },
       { label: 'GitHub', href: LINKS.github, external: true },
-      { label: 'Releases', href: LINKS.releases, external: true },
-      { label: 'Issues', href: LINKS.issues, external: true },
+      { label: t.footer.releases, href: LINKS.releases, external: true },
+      { label: t.footer.issues, href: LINKS.issues, external: true },
     ],
   },
 ]
+
+const licenseHtml = fill(t.footer.license, { year, license: LINKS.license })
+const brandHtml = fill(t.footer.brand, { email: LINKS.email })
 ---
 
 <footer class="border-t border-border bg-surface">
   <div class="mx-auto grid max-w-6xl gap-10 px-6 py-12 sm:grid-cols-2 lg:grid-cols-4">
     <div class="lg:col-span-2">
-      <a href="/" class="flex items-center gap-2.5" aria-label="Kutup home">
+      <a href={localePath(locale, '/')} class="flex items-center gap-2.5" aria-label="Kutup home">
         <KutupLogo size={28} />
         <span class="text-lg font-semibold tracking-tight text-fg">Kutup</span>
       </a>
-      <p class="mt-3 max-w-sm text-sm text-muted">
-        End-to-end encrypted, self-hosted Google Drive — with real-time collab
-        for notes, office docs, and whiteboards. The server only ever sees
-        ciphertext.
-      </p>
+      <p class="mt-3 max-w-sm text-sm text-muted">{t.footer.blurb}</p>
     </div>
 
     {
@@ -66,22 +73,10 @@ const columns = [
 
   <div class="border-t border-border">
     <div
-      class="mx-auto flex max-w-6xl flex-col gap-3 px-6 py-6 text-xs text-muted sm:flex-row sm:items-center sm:justify-between"
+      class="rich mx-auto flex max-w-6xl flex-col gap-3 px-6 py-6 text-xs text-muted sm:flex-row sm:items-center sm:justify-between"
     >
-      <p>
-        © {year} Alperen Albayrak. Source licensed{' '}
-        <a
-          href={LINKS.license}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="text-ice hover:text-pale">AGPL-3.0-only</a
-        >.
-      </p>
-      <p>
-        The Kutup name and three-diamond logo are brand assets, not granted by
-        the AGPL. Brand inquiries:{' '}
-        <a href={`mailto:${LINKS.email}`} class="text-ice hover:text-pale">{LINKS.email}</a>.
-      </p>
+      <p set:html={licenseHtml} />
+      <p set:html={brandHtml} />
     </div>
   </div>
 </footer>

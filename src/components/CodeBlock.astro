@@ -5,15 +5,17 @@ interface Props {
   code: string
   title?: string
   lang?: string
+  copyLabel?: string
+  copiedLabel?: string
 }
-const { code, title, lang } = Astro.props
+const { code, title, lang, copyLabel, copiedLabel } = Astro.props
 const trimmed = code.replace(/\n$/, '')
 ---
 
 <div class="overflow-hidden rounded-xl border border-border bg-surface-2">
   <div class="flex items-center justify-between border-b border-border bg-surface px-4 py-2">
     <span class="font-mono text-xs text-muted">{title ?? lang ?? 'shell'}</span>
-    <CopyButton client:visible text={trimmed} />
+    <CopyButton client:visible text={trimmed} label={copyLabel} copiedLabel={copiedLabel} />
   </div>
   <pre class="overflow-x-auto p-4 text-sm leading-relaxed"><code class="font-mono text-fg">{trimmed}</code></pre>
 </div>

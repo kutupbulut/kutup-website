@@ -8,7 +8,16 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
   site: 'https://kutup.dev',
   output: 'static',
-  integrations: [react(), sitemap()],
+  integrations: [
+    react(),
+    sitemap({
+      // Emits hreflang alternates; URL prefixes map to src/i18n locales.
+      i18n: {
+        defaultLocale: 'en',
+        locales: { en: 'en', tr: 'tr' },
+      },
+    }),
+  ],
   vite: {
     plugins: [tailwindcss()],
   },

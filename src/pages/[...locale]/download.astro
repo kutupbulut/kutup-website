@@ -1,0 +1,113 @@
+---
+import Base from '../../layouts/Base.astro'
+import Section from '../../components/Section.astro'
+import CodeBlock from '../../components/CodeBlock.astro'
+import OsDownload from '../../components/islands/OsDownload.tsx'
+import { LINKS } from '../../consts'
+import {
+  fill,
+  getStaticLocalePaths,
+  localeFromParam,
+  localePath,
+} from '../../i18n/config'
+import { getDict } from '../../i18n'
+
+export function getStaticPaths() {
+  return getStaticLocalePaths()
+}
+
+const locale = localeFromParam(Astro.params.locale)
+const t = getDict(locale)
+---
+
+<Base locale={locale} title={t.download.meta.title} description={t.download.meta.description}>
+  <section class="bg-glacier border-b border-border">
+    <div class="mx-auto max-w-3xl px-6 py-16 text-center sm:py-20">
+      <p class="text-sm font-semibold uppercase tracking-widest text-ice">{t.download.hero.eyebrow}</p>
+      <h1 class="mt-3 text-balance text-4xl font-bold tracking-tight text-fg sm:text-5xl">
+        {t.download.hero.title}
+      </h1>
+      <p class="mx-auto mt-5 max-w-2xl text-pretty text-lg text-muted">
+        {t.download.hero.sub}
+      </p>
+      <p class="mt-4 inline-flex items-center gap-2 rounded-full border border-amber/40 bg-amber/10 px-3 py-1 text-xs font-medium text-amber">
+        {t.download.hero.badge}
+      </p>
+    </div>
+  </section>
+
+  <Section class="!pt-12">
+    <div class="mx-auto max-w-3xl">
+      <OsDownload client:load releasesUrl={LINKS.releases} t={t.download.desktop} />
+    </div>
+  </Section>
+
+  <Section class="!pt-0">
+    <div class="grid gap-6 lg:grid-cols-2">
+      <!-- Mobile -->
+      <div class="rounded-2xl border border-border bg-surface p-6 sm:p-8">
+        <p class="text-sm font-semibold uppercase tracking-widest text-ice">{t.download.mobile.eyebrow}</p>
+        <h3 class="mt-2 text-2xl font-bold text-fg">{t.download.mobile.title}</h3>
+        <p class="mt-2 text-sm text-muted">{t.download.mobile.body}</p>
+        <a
+          href={LINKS.releases}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="mt-5 inline-flex items-center justify-center rounded-lg border border-border bg-surface-2 px-5 py-2.5 text-sm font-medium text-fg transition-colors hover:border-ice/60 hover:text-ice"
+        >
+          {t.download.mobile.cta}
+        </a>
+      </div>
+
+      <!-- Web -->
+      <div class="rounded-2xl border border-border bg-surface p-6 sm:p-8">
+        <p class="text-sm font-semibold uppercase tracking-widest text-ice">{t.download.web.eyebrow}</p>
+        <h3 class="mt-2 text-2xl font-bold text-fg">{t.download.web.title}</h3>
+        <p class="mt-2 text-sm text-muted">{t.download.web.body}</p>
+        <a
+          href={localePath(locale, '/self-host')}
+          class="mt-5 inline-flex items-center justify-center rounded-lg border border-border bg-surface-2 px-5 py-2.5 text-sm font-medium text-fg transition-colors hover:border-ice/60 hover:text-ice"
+        >
+          {t.download.web.cta}
+        </a>
+      </div>
+    </div>
+  </Section>
+
+  <!-- CLI -->
+  <section class="border-t border-border bg-surface">
+    <Section
+      eyebrow={t.download.cli.eyebrow}
+      title={t.download.cli.title}
+      subtitle={t.download.cli.subtitle}
+    >
+      <div class="mx-auto mt-10 max-w-3xl space-y-6">
+        <div>
+          <h3 class="mb-3 text-lg font-semibold text-fg">{t.download.cli.withGo}</h3>
+          <CodeBlock
+            lang="sh"
+            code="go install github.com/kutupbulut/kutup/cmd/kutup@latest"
+            copyLabel={t.copy.label}
+            copiedLabel={t.copy.copied}
+          />
+          <p class="rich mt-2 text-sm text-muted" set:html={t.download.cli.goNote} />
+        </div>
+        <div>
+          <h3 class="mb-3 text-lg font-semibold text-fg">{t.download.cli.fromSource}</h3>
+          <CodeBlock
+            lang="sh"
+            copyLabel={t.copy.label}
+            copiedLabel={t.copy.copied}
+            code={`git clone https://github.com/kutupbulut/kutup.git
+cd kutup/cmd/kutup
+go build -o ~/.local/bin/kutup .`}
+          />
+        </div>
+        <p
+          class="rich text-sm text-muted"
+          set:html={fill(t.download.cli.binaryNote, { releases: LINKS.releases })}
+        />
+      </div>
+    </Section>
+  </section>
+</Base>

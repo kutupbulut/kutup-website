@@ -1,0 +1,54 @@
+---
+import Base from '../../layouts/Base.astro'
+import Section from '../../components/Section.astro'
+import InstanceFilter from '../../components/islands/InstanceFilter.tsx'
+import type { Instance } from '../../components/islands/InstanceFilter.tsx'
+import { LINKS } from '../../consts'
+import {
+  getStaticLocalePaths,
+  localeFromParam,
+  localePath,
+} from '../../i18n/config'
+import { getDict } from '../../i18n'
+import instancesData from '../../data/instances.json'
+
+export function getStaticPaths() {
+  return getStaticLocalePaths()
+}
+
+const locale = localeFromParam(Astro.params.locale)
+const t = getDict(locale)
+
+const instances = instancesData as Instance[]
+---
+
+<Base locale={locale} title={t.instances.meta.title} description={t.instances.meta.description}>
+  <section class="bg-glacier border-b border-border">
+    <div class="mx-auto max-w-3xl px-6 py-16 text-center sm:py-20">
+      <p class="text-sm font-semibold uppercase tracking-widest text-ice">{t.instances.hero.eyebrow}</p>
+      <h1 class="mt-3 text-balance text-4xl font-bold tracking-tight text-fg sm:text-5xl">
+        {t.instances.hero.title}
+      </h1>
+      <p class="mx-auto mt-5 max-w-2xl text-pretty text-lg text-muted">
+        {t.instances.hero.sub}
+      </p>
+    </div>
+  </section>
+
+  <Section>
+    <div class="mx-auto max-w-4xl">
+      <InstanceFilter
+        client:load
+        instances={instances}
+        submitUrl={LINKS.submitInstance}
+        selfHostUrl={localePath(locale, '/self-host')}
+        t={t.instances.filter}
+      />
+    </div>
+
+    <div class="mx-auto mt-12 max-w-2xl rounded-2xl border border-border bg-surface p-6 text-center">
+      <h2 class="text-lg font-semibold text-fg">{t.instances.trust.title}</h2>
+      <p class="mt-2 text-sm text-muted">{t.instances.trust.body}</p>
+    </div>
+  </Section>
+</Base>

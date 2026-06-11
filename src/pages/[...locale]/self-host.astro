@@ -1,0 +1,164 @@
+---
+import Base from '../../layouts/Base.astro'
+import Section from '../../components/Section.astro'
+import CodeBlock from '../../components/CodeBlock.astro'
+import Button from '../../components/Button.astro'
+import { LINKS } from '../../consts'
+import {
+  fill,
+  getStaticLocalePaths,
+  localeFromParam,
+  localePath,
+} from '../../i18n/config'
+import { getDict } from '../../i18n'
+
+export function getStaticPaths() {
+  return getStaticLocalePaths()
+}
+
+const locale = localeFromParam(Astro.params.locale)
+const t = getDict(locale)
+
+const envExample = `# PostgreSQL — use a strong random password
+POSTGRES_PASSWORD=<strong-random-password>
+
+# JWT secret — generate with: openssl rand -hex 64
+JWT_SECRET=<64-byte-hex-string>
+
+# SeaweedFS S3 credentials — must match seaweedfs-s3.json
+S3_ACCESS_KEY=kutup
+S3_SECRET_KEY=<strong-random-secret>
+S3_BUCKET=kutup-files
+
+# Public URL — used to build federation invite links
+SERVER_URL=https://kutup.example.com
+
+# Admin bootstrap: email:username:password triples, comma-separated
+ADMIN_ACCOUNTS=admin@example.com:admin:<strong-admin-password>`
+---
+
+<Base locale={locale} title={t.selfHost.meta.title} description={t.selfHost.meta.description}>
+  <section class="bg-glacier border-b border-border">
+    <div class="mx-auto max-w-3xl px-6 py-16 text-center sm:py-20">
+      <p class="text-sm font-semibold uppercase tracking-widest text-ice">{t.selfHost.hero.eyebrow}</p>
+      <h1 class="mt-3 text-balance text-4xl font-bold tracking-tight text-fg sm:text-5xl">
+        {t.selfHost.hero.title}
+      </h1>
+      <p class="mx-auto mt-5 max-w-2xl text-pretty text-lg text-muted">
+        {t.selfHost.hero.sub}
+      </p>
+      <div class="mt-7 flex flex-wrap justify-center gap-3">
+        <Button href={LINKS.docs} external>{t.selfHost.hero.ctaDocs}</Button>
+        <Button href={LINKS.github} variant="secondary" external>{t.selfHost.hero.ctaRepo}</Button>
+      </div>
+    </div>
+  </section>
+
+  <Section>
+    <!-- Prerequisites -->
+    <div class="mx-auto max-w-3xl">
+      <h2 class="text-2xl font-bold text-fg">{t.selfHost.prereqs.title}</h2>
+      <ul class="mt-4 space-y-3">
+        {
+          t.selfHost.prereqs.items.map((p) => (
+            <li class="flex gap-3 text-muted">
+              <span class="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-ice" />
+              <span>{p}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <!-- Steps -->
+    <div class="mx-auto mt-12 max-w-3xl space-y-10">
+      <div>
+        <h3 class="text-xl font-semibold text-fg">{t.selfHost.steps.clone.title}</h3>
+        <p class="mt-2 text-muted">{t.selfHost.steps.clone.intro}</p>
+        <div class="mt-4">
+          <CodeBlock
+            lang="sh"
+            copyLabel={t.copy.label}
+            copiedLabel={t.copy.copied}
+            code={`git clone https://github.com/kutupbulut/kutup.git
+cd kutup
+cp .env.example .env`}
+          />
+        </div>
+        <p class="rich mt-4 text-muted" set:html={t.selfHost.steps.clone.envIntro} />
+        <div class="mt-4">
+          <CodeBlock title=".env" code={envExample} copyLabel={t.copy.label} copiedLabel={t.copy.copied} />
+        </div>
+        <p class="rich mt-3 text-sm text-muted" set:html={t.selfHost.steps.clone.s3Note} />
+      </div>
+
+      <div>
+        <h3 class="text-xl font-semibold text-fg">{t.selfHost.steps.start.title}</h3>
+        <p class="mt-2 text-muted">{t.selfHost.steps.start.intro}</p>
+        <div class="mt-4">
+          <CodeBlock lang="sh" code="docker compose up -d --build" copyLabel={t.copy.label} copiedLabel={t.copy.copied} />
+        </div>
+      </div>
+
+      <div>
+        <h3 class="text-xl font-semibold text-fg">{t.selfHost.steps.login.title}</h3>
+        <p class="mt-2 text-muted">{t.selfHost.steps.login.intro}</p>
+        <div class="mt-4">
+          <CodeBlock
+            lang="sh"
+            code={'docker compose logs backend | grep -i "admin\\|bootstrap"'}
+            copyLabel={t.copy.label}
+            copiedLabel={t.copy.copied}
+          />
+        </div>
+        <p class="rich mt-4 text-muted" set:html={t.selfHost.steps.login.note} />
+      </div>
+
+      <div>
+        <h3 class="text-xl font-semibold text-fg">{t.selfHost.steps.tls.title}</h3>
+        <p class="rich mt-2 text-muted" set:html={t.selfHost.steps.tls.intro} />
+        <div class="mt-4">
+          <CodeBlock
+            lang="sh"
+            copyLabel={t.copy.label}
+            copiedLabel={t.copy.copied}
+            code={`certbot certonly --standalone -d kutup.example.com
+cp /etc/letsencrypt/live/kutup.example.com/fullchain.pem nginx/certs/
+cp /etc/letsencrypt/live/kutup.example.com/privkey.pem  nginx/certs/
+docker compose exec nginx nginx -s reload`}
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- Operational notes -->
+    <div class="mx-auto mt-14 max-w-3xl">
+      <h2 class="text-2xl font-bold text-fg">{t.selfHost.operating.title}</h2>
+      <div class="mt-6 grid gap-4 sm:grid-cols-2">
+        {
+          t.selfHost.operating.cards.map((card) => (
+            <div class="rounded-2xl border border-border bg-surface p-5">
+              <h3 class="font-semibold text-fg">{card.title}</h3>
+              <p class="rich mt-2 text-sm text-muted" set:html={card.body} />
+            </div>
+          ))
+        }
+      </div>
+      <p
+        class="rich mt-6 text-sm text-muted"
+        set:html={fill(t.selfHost.operating.docsNote, { docs: LINKS.docs })}
+      />
+    </div>
+  </Section>
+
+  <section class="bg-glacier border-t border-border">
+    <div class="mx-auto max-w-3xl px-6 py-16 text-center">
+      <h2 class="text-3xl font-bold tracking-tight text-fg">{t.selfHost.cta.title}</h2>
+      <p class="mx-auto mt-4 max-w-xl text-muted">{t.selfHost.cta.body}</p>
+      <div class="mt-6 flex flex-wrap justify-center gap-3">
+        <Button href={localePath(locale, '/instances')} size="lg">{t.selfHost.cta.browse}</Button>
+        <Button href={LINKS.submitInstance} size="lg" variant="secondary" external>{t.selfHost.cta.submit}</Button>
+      </div>
+    </div>
+  </section>
+</Base>

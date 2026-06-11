@@ -1,0 +1,137 @@
+---
+import Base from '../../layouts/Base.astro'
+import Section from '../../components/Section.astro'
+import Screenshot from '../../components/Screenshot.astro'
+import CodeBlock from '../../components/CodeBlock.astro'
+import Button from '../../components/Button.astro'
+import { LINKS } from '../../consts'
+import {
+  getStaticLocalePaths,
+  localeFromParam,
+  localePath,
+} from '../../i18n/config'
+import { getDict } from '../../i18n'
+
+export function getStaticPaths() {
+  return getStaticLocalePaths()
+}
+
+const locale = localeFromParam(Astro.params.locale)
+const t = getDict(locale)
+
+// Anchors and screenshots zip with the translated sections by index.
+const sectionMeta = [
+  { id: 'drive', img: '/screenshots/01-drive.png' },
+  { id: 'notes', img: '/screenshots/02-notes-editor.png' },
+  { id: 'office', img: '/screenshots/03-xlsx.png' },
+  { id: 'whiteboards', img: '/screenshots/04-whiteboard.png' },
+  { id: 'versions', img: '/screenshots/05-version-history.png' },
+  { id: 'keys', img: '/screenshots/06-settings.png' },
+]
+---
+
+<Base locale={locale} title={t.features.meta.title} description={t.features.meta.description}>
+  <section class="bg-glacier border-b border-border">
+    <div class="mx-auto max-w-3xl px-6 py-16 text-center sm:py-24">
+      <p class="text-sm font-semibold uppercase tracking-widest text-ice">{t.features.hero.eyebrow}</p>
+      <h1 class="mt-3 text-balance text-4xl font-bold tracking-tight text-fg sm:text-5xl">
+        {t.features.hero.title}
+      </h1>
+      <p class="mx-auto mt-5 max-w-2xl text-pretty text-lg text-muted">
+        {t.features.hero.sub}
+      </p>
+    </div>
+  </section>
+
+  {
+    t.features.sections.map((s, i) => (
+      <Section id={sectionMeta[i].id} class={i % 2 === 1 ? 'border-y border-border bg-surface' : ''}>
+        <div class="grid items-center gap-8 lg:grid-cols-2 lg:gap-14">
+          <div class={i % 2 === 1 ? 'lg:order-2' : ''}>
+            <p class="text-sm font-semibold uppercase tracking-widest text-ice">{s.eyebrow}</p>
+            <h2 class="mt-2 text-3xl font-bold tracking-tight text-fg">{s.title}</h2>
+            <ul class="mt-5 space-y-3">
+              {s.points.map((p) => (
+                <li class="flex gap-3 text-pretty text-muted">
+                  <span class="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-ice" />
+                  <span>{p}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div class={i % 2 === 1 ? 'lg:order-1' : ''}>
+            <Screenshot src={sectionMeta[i].img} alt={s.alt} />
+          </div>
+        </div>
+      </Section>
+    ))
+  }
+
+  <!-- Federation -->
+  <Section
+    id="federation"
+    eyebrow={t.features.federation.eyebrow}
+    title={t.features.federation.title}
+    subtitle={t.features.federation.subtitle}
+  >
+    <div class="mx-auto mt-10 max-w-2xl rounded-2xl border border-border bg-surface p-8 text-center">
+      <p class="rich text-muted" set:html={t.features.federation.body} />
+    </div>
+  </Section>
+
+  <!-- CLI -->
+  <section class="border-y border-border bg-surface">
+    <Section
+      id="cli"
+      eyebrow={t.features.cli.eyebrow}
+      title={t.features.cli.title}
+      subtitle={t.features.cli.subtitle}
+    >
+      <div class="mx-auto mt-10 grid max-w-4xl gap-6 lg:grid-cols-2">
+        <div>
+          <h3 class="text-lg font-semibold text-fg">{t.features.cli.install}</h3>
+          <div class="mt-3">
+            <CodeBlock
+              lang="sh"
+              code="go install github.com/kutupbulut/kutup/cmd/kutup@latest"
+              copyLabel={t.copy.label}
+              copiedLabel={t.copy.copied}
+            />
+          </div>
+          <p class="mt-4 text-sm text-muted">{t.features.cli.installNote}</p>
+        </div>
+        <div>
+          <h3 class="text-lg font-semibold text-fg">{t.features.cli.workflows}</h3>
+          <div class="mt-3">
+            <CodeBlock
+              lang="sh"
+              copyLabel={t.copy.label}
+              copiedLabel={t.copy.copied}
+              code={`kutup login --server https://your.kutup.host
+kutup ls
+kutup upload ./big-dataset.tar.gz <folder-id>
+kutup sync ./local-folder <folder-id> --watch
+kutup versions restore <file-id> <version-id>`}
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="mx-auto mt-8 max-w-4xl rounded-2xl border border-ice/40 bg-ink p-6">
+        <p class="text-sm font-semibold uppercase tracking-widest text-ice">{t.features.cli.standoutTitle}</p>
+        <p class="rich mt-2 text-pretty text-muted" set:html={t.features.cli.standoutBody} />
+      </div>
+    </Section>
+  </section>
+
+  <section class="bg-glacier">
+    <div class="mx-auto max-w-3xl px-6 py-16 text-center">
+      <h2 class="text-3xl font-bold tracking-tight text-fg">{t.features.cta.title}</h2>
+      <div class="mt-6 flex flex-wrap justify-center gap-3">
+        <Button href={localePath(locale, '/self-host')} size="lg">{t.home.hero.ctaSelfHost}</Button>
+        <Button href={localePath(locale, '/download')} size="lg" variant="secondary">{t.home.hero.ctaDownload}</Button>
+        <Button href={LINKS.docs} size="lg" variant="ghost" external>{t.features.cta.readDocs}</Button>
+      </div>
+    </div>
+  </section>
+</Base>

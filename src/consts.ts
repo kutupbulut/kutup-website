@@ -1,13 +1,10 @@
 // Site-wide constants. Single source of truth for external URLs and metadata.
 
+// Taglines/descriptions live in src/i18n/<locale>.ts so they translate.
 export const SITE = {
   name: 'Kutup',
   domain: 'kutup.dev',
   url: 'https://kutup.dev',
-  tagline:
-    'End-to-end encrypted, self-hosted Google Drive — with real-time collab for notes, office docs, and whiteboards.',
-  description:
-    'Kutup is a privacy-first, end-to-end encrypted file storage and live-collaboration platform you run on your own hardware. The server only ever sees ciphertext.',
 } as const
 
 export const LINKS = {
@@ -21,12 +18,3 @@ export const LINKS = {
   email: 'dev@kutup.dev',
   license: 'https://www.gnu.org/licenses/agpl-3.0.en.html',
 } as const
-
-// Primary navigation shown in the header.
-export const NAV = [
-  { label: 'Features', href: '/features' },
-  { label: 'Download', href: '/download' },
-  { label: 'Self-host', href: '/self-host' },
-  { label: 'Instances', href: '/instances' },
-  { label: 'Docs', href: LINKS.docs, external: true },
-] as const

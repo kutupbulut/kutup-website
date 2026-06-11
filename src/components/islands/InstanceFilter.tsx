@@ -9,16 +9,23 @@ export interface Instance {
   notes?: string
 }
 
+export interface InstanceFilterStrings {
+  emptyTitle: string
+  emptyBody: string
+  hostYourOwn: string
+  submit: string
+  searchPlaceholder: string
+  /** Label for the "all regions" chip; region values come from the data. */
+  allRegions: string
+  signups: Record<Instance['signups'], string>
+  noMatch: string
+}
+
 interface Props {
   instances: Instance[]
   submitUrl: string
   selfHostUrl: string
-}
-
-const SIGNUP_LABEL: Record<Instance['signups'], string> = {
-  open: 'Open signups',
-  invite: 'Invite only',
-  closed: 'Closed',
+  t: InstanceFilterStrings
 }
 
 const SIGNUP_STYLE: Record<Instance['signups'], string> = {
@@ -27,7 +34,7 @@ const SIGNUP_STYLE: Record<Instance['signups'], string> = {
   closed: 'bg-danger/15 text-danger',
 }
 
-export default function InstanceFilter({ instances, submitUrl, selfHostUrl }: Props) {
+export default function InstanceFilter({ instances, submitUrl, selfHostUrl, t }: Props) {
   const [query, setQuery] = useState('')
   const [region, setRegion] = useState('all')
 
@@ -52,17 +59,14 @@ export default function InstanceFilter({ instances, submitUrl, selfHostUrl }: Pr
   if (instances.length === 0) {
     return (
       <div className="rounded-2xl border border-dashed border-border bg-surface p-10 text-center">
-        <p className="text-lg font-semibold text-fg">No public instances listed yet</p>
-        <p className="mx-auto mt-2 max-w-md text-sm text-muted">
-          Kutup is self-hosted by design and currently pre-release. Run your own
-          server in minutes, or list yours here for others to find.
-        </p>
+        <p className="text-lg font-semibold text-fg">{t.emptyTitle}</p>
+        <p className="mx-auto mt-2 max-w-md text-sm text-muted">{t.emptyBody}</p>
         <div className="mt-6 flex flex-wrap justify-center gap-3">
           <a
             href={selfHostUrl}
             className="inline-flex items-center justify-center rounded-lg bg-ice px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:bg-pale"
           >
-            Host your own
+            {t.hostYourOwn}
           </a>
           <a
             href={submitUrl}
@@ -70,7 +74,7 @@ export default function InstanceFilter({ instances, submitUrl, selfHostUrl }: Pr
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center rounded-lg border border-border bg-surface-2 px-5 py-2.5 text-sm font-medium text-fg transition-colors hover:border-ice/60 hover:text-ice"
           >
-            Submit your instance ↗
+            {t.submit}
           </a>
         </div>
       </div>
@@ -84,7 +88,7 @@ export default function InstanceFilter({ instances, submitUrl, selfHostUrl }: Pr
           type="search"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search instances…"
+          placeholder={t.searchPlaceholder}
           className="w-full rounded-lg border border-border bg-surface px-4 py-2.5 text-sm text-fg placeholder:text-muted focus:border-ice/60 focus:outline-none sm:max-w-xs"
         />
         <div className="flex flex-wrap gap-2">
@@ -99,7 +103,7 @@ export default function InstanceFilter({ instances, submitUrl, selfHostUrl }: Pr
                   : 'border border-border bg-surface-2 text-muted hover:text-fg'
               }`}
             >
-              {r}
+              {r === 'all' ? t.allRegions : r}
             </button>
           ))}
         </div>
@@ -122,7 +126,7 @@ export default function InstanceFilter({ instances, submitUrl, selfHostUrl }: Pr
               <span
                 className={`shrink-0 rounded-full px-2.5 py-1 text-xs font-medium ${SIGNUP_STYLE[i.signups]}`}
               >
-                {SIGNUP_LABEL[i.signups]}
+                {t.signups[i.signups]}
               </span>
             </div>
             <div className="mt-3 flex flex-wrap items-center gap-2 text-xs text-muted">
@@ -135,7 +139,7 @@ export default function InstanceFilter({ instances, submitUrl, selfHostUrl }: Pr
       </div>
 
       {filtered.length === 0 && (
-        <p className="mt-8 text-center text-sm text-muted">No instances match your filter.</p>
+        <p className="mt-8 text-center text-sm text-muted">{t.noMatch}</p>
       )}
 
       <div className="mt-8 text-center">
@@ -145,7 +149,7 @@ export default function InstanceFilter({ instances, submitUrl, selfHostUrl }: Pr
           rel="noopener noreferrer"
           className="text-sm font-medium text-ice hover:text-pale"
         >
-          Submit your instance ↗
+          {t.submit}
         </a>
       </div>
     </div>
