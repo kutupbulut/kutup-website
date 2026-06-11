@@ -1,5 +1,13 @@
-# Cloudflare Pages project config — used for `wrangler pages deploy`.
-# The custom domain (kutup.dev) is attached in the Cloudflare dashboard.
+# Cloudflare Workers (static assets) config — the repo is connected to Workers
+# Builds, which runs `npx wrangler versions upload` on push. The [build] command
+# generates dist/ before upload. The custom domain (kutup.dev) is attached in
+# the Cloudflare dashboard.
 name = "kutup-website"
-pages_build_output_dir = "dist"
 compatibility_date = "2025-06-09"
+
+[build]
+command = "npm run build"
+
+[assets]
+directory = "./dist"
+not_found_handling = "404-page"
