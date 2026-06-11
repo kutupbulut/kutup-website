@@ -1,10 +1,11 @@
 @import 'tailwindcss';
 
-/* Kutup brand theme — dark-first, built around the three-diamond palette.
-   The logo artwork and colors are kutup brand assets; see TRADEMARK in the
-   main repo. */
+/* Kutup brand theme — light and dark share the same semantic tokens; the
+   [data-theme] attribute (set pre-paint in Base.astro) picks the values at
+   runtime. The logo artwork and colors are kutup brand assets; see TRADEMARK
+   in the main repo. */
 @theme {
-  /* Brand diamonds + glacier palette */
+  /* Brand diamonds + glacier palette (dark defaults) */
   --color-ice: #38bdf8;
   --color-ocean: #0284c7;
   --color-deep: #0369a1;
@@ -29,9 +30,30 @@
     Consolas, monospace;
 }
 
+/* Style under the dark theme, e.g. `dark:hidden` */
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
+/* White theme — daylight values for the same tokens. Accents shift one stop
+   darker so text and buttons keep their contrast on white. */
+[data-theme='light'] {
+  --color-ice: #0284c7;
+  --color-pale: #0369a1;
+
+  --color-ink: #f6f8fc;
+  --color-surface: #ffffff;
+  --color-surface-2: #edf2f9;
+  --color-border: #dbe4f1;
+  --color-muted: #5b6b86;
+  --color-fg: #0b1424;
+}
+
 html {
   scroll-behavior: smooth;
   color-scheme: dark;
+}
+
+html[data-theme='light'] {
+  color-scheme: light;
 }
 
 body {
@@ -45,20 +67,20 @@ body {
 /* Glacier glow used behind hero / section headers */
 .bg-glacier {
   background:
-    radial-gradient(60rem 30rem at 50% -10%, rgba(56, 189, 248, 0.16), transparent 60%),
-    radial-gradient(40rem 24rem at 85% 10%, rgba(125, 211, 252, 0.08), transparent 60%);
-}
-
-/* Subtle grid texture */
-.bg-grid {
-  background-image:
-    linear-gradient(rgba(56, 189, 248, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(56, 189, 248, 0.05) 1px, transparent 1px);
-  background-size: 48px 48px;
+    radial-gradient(
+      60rem 30rem at 50% -10%,
+      color-mix(in srgb, var(--color-ice) 14%, transparent),
+      transparent 60%
+    ),
+    radial-gradient(
+      40rem 24rem at 85% 10%,
+      color-mix(in srgb, var(--color-pale) 7%, transparent),
+      transparent 60%
+    );
 }
 
 ::selection {
-  background: rgba(56, 189, 248, 0.3);
+  background: color-mix(in srgb, var(--color-ice) 30%, transparent);
 }
 
 /* Anchor offset so in-page links don't hide under the sticky header */

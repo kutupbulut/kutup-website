@@ -1,0 +1,55 @@
+---
+/* Light/dark switch. The current theme lives on <html data-theme>, set
+   pre-paint by the inline script in Base.astro; this button just flips and
+   persists it. */
+---
+
+<button
+  type="button"
+  data-theme-toggle
+  aria-label="Switch theme"
+  class="inline-flex h-9 w-9 items-center justify-center rounded-lg text-muted transition-colors hover:bg-surface-2 hover:text-fg"
+>
+  <!-- Sun — shown in dark mode (click for light) -->
+  <svg
+    class="hidden h-[18px] w-[18px] dark:block"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+  >
+    <circle cx="12" cy="12" r="4"></circle>
+    <path
+      d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"
+    ></path>
+  </svg>
+  <!-- Moon — shown in light mode (click for dark) -->
+  <svg
+    class="h-[18px] w-[18px] dark:hidden"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"></path>
+  </svg>
+</button>
+
+<script>
+  document.querySelectorAll('[data-theme-toggle]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const root = document.documentElement
+      const next = root.dataset.theme === 'dark' ? 'light' : 'dark'
+      root.dataset.theme = next
+      document
+        .querySelector('meta[name="theme-color"]')
+        ?.setAttribute('content', next === 'light' ? '#f6f8fc' : '#060a12')
+      try {
+        localStorage.setItem('theme', next)
+      } catch {}
+    })
+  })
+</script>

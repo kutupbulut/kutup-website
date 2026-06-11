@@ -35,6 +35,25 @@ const ogImage = new URL('/screenshots/01-drive.png', Astro.site)
     <link rel="canonical" href={canonicalURL} />
     <meta name="theme-color" content="#060a12" />
 
+    <!-- Resolve the theme before first paint: stored choice, else system. -->
+    <script is:inline>
+      ;(() => {
+        let theme
+        try {
+          theme = localStorage.getItem('theme')
+        } catch {}
+        if (theme !== 'light' && theme !== 'dark') {
+          theme = window.matchMedia('(prefers-color-scheme: light)').matches
+            ? 'light'
+            : 'dark'
+        }
+        document.documentElement.dataset.theme = theme
+        document
+          .querySelector('meta[name="theme-color"]')
+          ?.setAttribute('content', theme === 'light' ? '#f6f8fc' : '#060a12')
+      })()
+    </script>
+
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={SITE.name} />

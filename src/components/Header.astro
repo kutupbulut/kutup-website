@@ -1,5 +1,6 @@
 ---
 import KutupLogo from './KutupLogo.astro'
+import ThemeToggle from './ThemeToggle.astro'
 import MobileNav from './islands/MobileNav.tsx'
 import { NAV, LINKS } from '../consts'
 
@@ -35,23 +36,23 @@ const items = NAV.map((n) => ({
       }
     </nav>
 
-    <div class="hidden items-center gap-3 md:flex">
+    <div class="flex items-center gap-2">
+      <ThemeToggle />
       <a
         href={LINKS.github}
         target="_blank"
         rel="noopener noreferrer"
-        class="text-sm text-muted transition-colors hover:text-fg"
+        class="hidden text-sm text-muted transition-colors hover:text-fg md:block"
       >
         GitHub ↗
       </a>
       <a
         href="/download"
-        class="inline-flex items-center justify-center rounded-lg bg-ice px-4 py-2 text-sm font-medium text-ink transition-colors hover:bg-pale"
+        class="hidden items-center justify-center rounded-lg bg-ice px-4 py-2 text-sm font-medium text-ink transition-colors hover:bg-pale md:inline-flex"
       >
         Get Kutup
       </a>
+      <MobileNav client:load items={items} githubUrl={LINKS.github} />
     </div>
-
-    <MobileNav client:load items={items} githubUrl={LINKS.github} />
   </div>
 </header>
