@@ -1,7 +1,7 @@
 # kutup-website
 
 Marketing website for [Kutup](https://github.com/kutupbulut/kutup) — an
-end-to-end encrypted, self-hosted Google Drive with real-time collaboration.
+end-to-end encrypted, self-hosted drive with real-time collaboration.
 
 Lives at **kutup.dev**. Documentation is a separate project at **docs.kutup.dev**;
 this site only links out to it.

@@ -6,7 +6,7 @@
 const en = {
   site: {
     tagline:
-      'End-to-end encrypted, self-hosted Google Drive — with real-time collab for notes, office docs, and whiteboards.',
+      'End-to-end encrypted, self-hosted drive — with real-time collab for notes, office docs, and whiteboards.',
     description:
       'Kutup is a privacy-first, end-to-end encrypted file storage and live-collaboration platform you run on your own hardware. The server only ever sees ciphertext.',
   },
@@ -27,7 +27,7 @@ const en = {
 
   footer: {
     blurb:
-      'End-to-end encrypted, self-hosted Google Drive — with real-time collab for notes, office docs, and whiteboards. The server only ever sees ciphertext.',
+      'End-to-end encrypted, self-hosted drive — with real-time collab for notes, office docs, and whiteboards. The server only ever sees ciphertext.',
     product: 'Product',
     resources: 'Resources',
     documentation: 'Documentation',
@@ -47,7 +47,7 @@ const en = {
       // html: accent span around the highlighted phrase
       title:
         'The self-hosted Drive your server<span class="text-ice"> can’t read</span>.',
-      sub: 'Kutup is an end-to-end encrypted Google Drive you run yourself — with real-time collaboration for notes, office docs, and whiteboards. Every file, filename, edit, and cursor is encrypted in your browser before it leaves the page.',
+      sub: 'Kutup is an end-to-end encrypted drive you run yourself — with real-time collaboration for notes, office docs, and whiteboards. Every file, filename, edit, and cursor is encrypted in your browser before it leaves the page.',
       ctaSelfHost: 'Self-host Kutup',
       ctaDownload: 'Download apps',
       ctaStar: 'Star on GitHub ↗',

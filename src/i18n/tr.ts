@@ -7,7 +7,7 @@ import type { Dictionary } from './index'
 const tr: Dictionary = {
   site: {
     tagline:
-      'Uçtan uca şifreli, kendi sunucunuzda barındırdığınız Google Drive — notlar, ofis belgeleri ve beyaz tahtalar için gerçek zamanlı iş birliğiyle.',
+      'Uçtan uca şifreli, kendi sunucunuzda barındırdığınız sürücü — notlar, ofis belgeleri ve beyaz tahtalar için gerçek zamanlı iş birliğiyle.',
     description:
       'Kutup; kendi donanımınızda çalıştırdığınız, gizlilik öncelikli, uçtan uca şifreli bir dosya depolama ve canlı iş birliği platformudur. Sunucu yalnızca şifreli metin görür.',
   },
@@ -28,7 +28,7 @@ const tr: Dictionary = {
 
   footer: {
     blurb:
-      'Uçtan uca şifreli, kendi sunucunuzda barındırdığınız Google Drive — notlar, ofis belgeleri ve beyaz tahtalar için gerçek zamanlı iş birliğiyle. Sunucu yalnızca şifreli metin görür.',
+      'Uçtan uca şifreli, kendi sunucunuzda barındırdığınız sürücü — notlar, ofis belgeleri ve beyaz tahtalar için gerçek zamanlı iş birliğiyle. Sunucu yalnızca şifreli metin görür.',
     product: 'Ürün',
     resources: 'Kaynaklar',
     documentation: 'Belgeler',
@@ -45,7 +45,7 @@ const tr: Dictionary = {
       badge: 'Uçtan uca şifreli · kendi sunucunuzda · gerçek zamanlı iş birliği',
       title:
         'Sunucunuzun <span class="text-ice">okuyamadığı</span>, kendi barındırdığınız Drive.',
-      sub: 'Kutup, kendiniz çalıştırdığınız uçtan uca şifreli bir Google Drive’dır — notlar, ofis belgeleri ve beyaz tahtalar için gerçek zamanlı iş birliğiyle. Her dosya, dosya adı, düzenleme ve imleç, sayfadan ayrılmadan önce tarayıcınızda şifrelenir.',
+      sub: 'Kutup, kendiniz çalıştırdığınız uçtan uca şifreli bir sürücüdür — notlar, ofis belgeleri ve beyaz tahtalar için gerçek zamanlı iş birliğiyle. Her dosya, dosya adı, düzenleme ve imleç, sayfadan ayrılmadan önce tarayıcınızda şifrelenir.',
       ctaSelfHost: 'Kendi sunucunda kur',
       ctaDownload: 'Uygulamaları indir',
       ctaStar: 'GitHub’da yıldızla ↗',
