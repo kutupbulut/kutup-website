@@ -259,7 +259,6 @@ const tr: Dictionary = {
       body: 'Tauri 2 ile yerel kabuk — macOS, Windows ve Linux (amd64 & arm64); otomatik güncellemeler ve işletim sistemi anahtar zinciri desteğiyle. Derlemeler GitHub Releases’te yayımlanır.',
       downloadFor: '{os} için indir',
       goToReleases: 'Releases’e git',
-      allPlatforms: 'Tüm platformlar',
       preRelease:
         'Ön sürüm — masaüstü v1, uygulama içi ofis belgesi düzenleme olmadan gelir (ofis dosyalarını tarayıcı uygulamasında açın). Derlemeler henüz kod imzalı değil; macOS Gatekeeper / Windows SmartScreen ilk açılışta uyarı gösterebilir.',
     },

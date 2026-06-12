@@ -25,7 +25,6 @@ export interface OsDownloadStrings {
   body: string
   downloadFor: string
   goToReleases: string
-  allPlatforms: string
   preRelease: string
 }
 
@@ -43,6 +42,12 @@ export default function OsDownload({ releasesUrl, t }: Props) {
 
   const known = os !== 'unknown'
   const osLabel = known ? LABELS[os as Exclude<Os, 'unknown'>] : ''
+
+  const PLATFORMS: Exclude<Os, 'unknown'>[] = ['mac', 'windows', 'linux']
+  // Detected platform first; the rest follow as secondary buttons.
+  const others = known
+    ? PLATFORMS.filter((p) => p !== os)
+    : PLATFORMS
 
   return (
     <div className="rounded-2xl border border-ice/40 bg-surface p-6 sm:p-8">
@@ -62,14 +67,17 @@ export default function OsDownload({ releasesUrl, t }: Props) {
         >
           {known ? t.downloadFor.replace('{os}', osLabel) : t.goToReleases} ↗
         </a>
-        <a
-          href={releasesUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center justify-center gap-2 rounded-lg border border-border bg-surface-2 px-6 py-3 text-base font-medium text-fg transition-colors hover:border-ice/60 hover:text-ice"
-        >
-          {t.allPlatforms}
-        </a>
+        {others.map((p) => (
+          <a
+            key={p}
+            href={releasesUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center gap-2 rounded-lg border border-border px-6 py-3 text-base font-medium text-fg transition-colors hover:bg-surface-2"
+          >
+            {LABELS[p]}
+          </a>
+        ))}
       </div>
       <p className="mt-4 text-xs text-muted">{t.preRelease}</p>
     </div>

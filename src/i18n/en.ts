@@ -264,7 +264,6 @@ const en = {
       body: 'Native shell built with Tauri 2 — macOS, Windows, and Linux (amd64 & arm64), with auto-updates and OS keychain support. Builds are published on GitHub Releases.',
       downloadFor: 'Download for {os}',
       goToReleases: 'Go to Releases',
-      allPlatforms: 'All platforms',
       preRelease:
         'Pre-release — desktop v1 ships without in-app office-doc editing (open office files in the browser app). Builds aren’t code-signed yet, so macOS Gatekeeper / Windows SmartScreen may warn on first launch.',
     },
