@@ -44,7 +44,7 @@ const tr: Dictionary = {
     hero: {
       badge: 'Uçtan uca şifreli · kendi sunucunuzda · gerçek zamanlı iş birliği',
       title:
-        'Sunucunuzun <span class="text-ice">okuyamadığı</span>, kendi barındırdığınız Drive.',
+        'Uçtan uca şifreli <span class="text-ice">bulut platformu</span>',
       sub: 'Kutup, kendiniz çalıştırdığınız uçtan uca şifreli bir sürücüdür — notlar, ofis belgeleri ve beyaz tahtalar için gerçek zamanlı iş birliğiyle. Her dosya, dosya adı, düzenleme ve imleç, sayfadan ayrılmadan önce tarayıcınızda şifrelenir.',
       ctaSelfHost: 'Kendi sunucunda kur',
       ctaDownload: 'Uygulamaları indir',
