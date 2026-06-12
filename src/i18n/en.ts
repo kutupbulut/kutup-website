@@ -132,7 +132,7 @@ const en = {
       title: 'A pragmatic, auditable stack',
     },
     ack: {
-      lead: 'Built with great open-source projects:',
+      lead: 'Inspired by great open-source projects:',
     },
     cta: {
       title: 'Run your own encrypted Drive today',

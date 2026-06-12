@@ -129,7 +129,7 @@ const tr: Dictionary = {
       title: 'Pragmatik, denetlenebilir bir teknoloji yığını',
     },
     ack: {
-      lead: 'Harika açık kaynak projelerle inşa edildi:',
+      lead: 'Açık kaynak projelerden ilhamla inşa edildi:',
     },
     cta: {
       title: 'Kendi şifreli Drive’ınızı bugün çalıştırın',
