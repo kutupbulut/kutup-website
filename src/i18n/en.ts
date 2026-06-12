@@ -47,24 +47,23 @@ const en = {
       // html: accent span around the highlighted phrase
       title:
         'The self-hosted Drive your server<span class="text-ice"> can’t read</span>.',
-      sub: 'Kutup is an end-to-end encrypted drive you run yourself — with real-time collaboration for notes, office docs, and whiteboards. Every file, filename, edit, and cursor is encrypted in your browser before it leaves the page.',
+      sub: 'An end-to-end encrypted drive you run yourself. Files, notes, office docs, and whiteboards — everything is encrypted in your browser before it leaves the page.',
       ctaSelfHost: 'Self-host Kutup',
       ctaDownload: 'Download apps',
-      ctaStar: 'Star on GitHub ↗',
       screenshotAlt: 'Kutup Drive interface',
     },
     pillars: [
       {
         title: 'Zero-knowledge server',
-        body: 'Keys are derived in your browser from your password and recovery phrase. The server stores only AEAD-encrypted bytes — it can route and persist them, but never read them.',
+        body: 'Keys are derived in your browser from your password and recovery phrase. The server stores ciphertext it can never read.',
       },
       {
         title: 'Collaboration, still encrypted',
-        body: 'The differentiator: real-time editing without giving up E2EE. The relay sees a stream of opaque, Ed25519-signed frames — not a single byte of content.',
+        body: 'Real-time editing without giving up E2EE — the relay routes opaque, signed frames and never sees content.',
       },
       {
         title: 'Yours to run & federate',
-        body: 'Self-hosted by design via Docker Compose. Federation lets you share a folder with someone on a different Kutup server without either backend ever seeing plaintext.',
+        body: 'One Docker Compose stack. Share folders across Kutup servers without either backend seeing plaintext.',
       },
     ],
     highlights: {
@@ -77,32 +76,32 @@ const en = {
         {
           title: 'Files the server can’t read',
           alt: 'Kutup Drive — file browser with folders, uploads, and storage quota',
-          body: 'Nested collections, drag-and-drop upload, public share links, and per-user folder shares with read/upload/delete permissions. Filenames, MIME types, and folder structure are encrypted client-side. Stream upload keeps multi-GB files out of memory. Storage backs onto SeaweedFS (S3-compatible).',
+          body: 'Nested folders, drag-and-drop uploads, share links, and per-user permissions. Filenames and folder structure are encrypted too.',
         },
         {
           title: 'Live notes & code',
           alt: 'Notes editor — CodeMirror with version-history sidebar',
-          body: 'CodeMirror 6 + Yjs CRDT for Markdown, plain text, and 20+ code languages. Multi-user cursors and selection presence with a per-user awareness color. Every edit is a Yjs update wrapped in an AEAD envelope — the server gets opaque ciphertext.',
+          body: 'CodeMirror 6 + Yjs for Markdown and 20+ code languages, with live multi-user cursors. Every edit reaches the server as ciphertext.',
         },
         {
           title: 'Office docs, fully client-side',
           alt: 'Spreadsheet editor with conditional formatting',
-          body: '.docx, .xlsx, and .pptx via OnlyOffice running entirely in the browser using the CryptPad pattern. Document state is never decrypted server-side. Live cell-selection presence, per-user colors, formulas, charts, and conditional formatting.',
+          body: '.docx, .xlsx, and .pptx open in OnlyOffice running entirely in your browser. Live presence, formulas, charts — never decrypted server-side.',
         },
         {
           title: 'Whiteboards',
           alt: 'Excalidraw whiteboard',
-          body: '.excalidraw files open in Excalidraw with cross-tab sync and last-write-wins reconciliation — wrapped in the same end-to-end-encrypted envelope as everything else.',
+          body: 'Excalidraw canvases with live sync — wrapped in the same encrypted envelope as everything else.',
         },
         {
           title: 'Version history on every file',
           alt: 'Version history sidebar',
-          body: 'Every save creates a versioned snapshot. Open the History sidebar in any editor, scroll back, and restore. Named saves are kept forever; anonymous saves age out. Notes, office, and whiteboards all share the same plumbing.',
+          body: 'Every save is a snapshot. Scroll back and restore from the History sidebar in any editor.',
         },
         {
           title: 'You own your keys',
           alt: 'Settings — devices and presence color',
-          body: 'Multi-device with per-device Ed25519 keypairs you can revoke individually. A 24-word BIP39 recovery phrase doubles as the second factor for account recovery. Optional TOTP 2FA. Your picked presence color follows you across editors.',
+          body: 'Per-device keys you can revoke, a 24-word recovery phrase, and optional 2FA. Nothing secret ever reaches the server.',
         },
       ],
     },
@@ -133,14 +132,7 @@ const en = {
       title: 'A pragmatic, auditable stack',
     },
     ack: {
-      eyebrow: 'Standing on shoulders',
-      title: 'Built with great open-source projects',
-      notes: [
-        'powers collaborative office editing',
-        'the client-only encrypted-office pattern',
-        'the E2EE key-hierarchy model',
-        'the embedded whiteboard + reconciliation',
-      ],
+      lead: 'Built with great open-source projects:',
     },
     cta: {
       title: 'Run your own encrypted Drive today',

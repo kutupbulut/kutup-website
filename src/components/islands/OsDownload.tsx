@@ -58,7 +58,7 @@ export default function OsDownload({ releasesUrl, t }: Props) {
           href={releasesUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center justify-center gap-2 rounded-lg bg-ice px-6 py-3 text-base font-medium text-ink shadow-lg shadow-ice/20 transition-colors hover:bg-pale"
+          className="inline-flex items-center justify-center gap-2 rounded-lg bg-ice px-6 py-3 text-base font-medium text-ink transition-colors hover:bg-pale"
         >
           {known ? t.downloadFor.replace('{os}', osLabel) : t.goToReleases} ↗
         </a>

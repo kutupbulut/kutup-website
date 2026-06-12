@@ -1,10 +1,18 @@
 ---
 interface Props {
   title: string
-  icon?: string
+  /** Line-icon name rendered in the card header. */
+  icon?: 'lock' | 'bolt' | 'globe'
   class?: string
 }
 const { title, icon, class: className = '' } = Astro.props
+
+const icons: Record<NonNullable<Props['icon']>, string> = {
+  lock: '<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
+  bolt: '<path d="M13 2 5 13h6l-1 9 8-11h-6l1-9Z"/>',
+  globe:
+    '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>',
+}
 ---
 
 <div
@@ -12,8 +20,17 @@ const { title, icon, class: className = '' } = Astro.props
 >
   {
     icon && (
-      <div class="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-ice/10 text-xl">
-        {icon}
+      <div class="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-ice/10 text-ice">
+        <svg
+          class="h-5 w-5"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          set:html={icons[icon]}
+        />
       </div>
     )
   }

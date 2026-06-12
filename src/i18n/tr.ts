@@ -45,24 +45,23 @@ const tr: Dictionary = {
       badge: 'Uçtan uca şifreli · kendi sunucunuzda · gerçek zamanlı iş birliği',
       title:
         'Uçtan uca şifreli <span class="text-ice">bulut platformu</span>',
-      sub: 'Kutup, kendiniz çalıştırdığınız uçtan uca şifreli bir sürücüdür — notlar, ofis belgeleri ve beyaz tahtalar için gerçek zamanlı iş birliğiyle. Her dosya, dosya adı, düzenleme ve imleç, sayfadan ayrılmadan önce tarayıcınızda şifrelenir.',
+      sub: 'Kendiniz çalıştırdığınız uçtan uca şifreli bir sürücü. Dosyalar, notlar, ofis belgeleri ve beyaz tahtalar — her şey sayfadan ayrılmadan önce tarayıcınızda şifrelenir.',
       ctaSelfHost: 'Kendi sunucunda kur',
       ctaDownload: 'Uygulamaları indir',
-      ctaStar: 'GitHub’da yıldızla ↗',
       screenshotAlt: 'Kutup Drive arayüzü',
     },
     pillars: [
       {
         title: 'Sıfır bilgili sunucu',
-        body: 'Anahtarlar, şifreniz ve kurtarma ifadenizden tarayıcınızda türetilir. Sunucu yalnızca AEAD ile şifrelenmiş baytları saklar — onları yönlendirip kalıcı hale getirebilir, ama asla okuyamaz.',
+        body: 'Anahtarlar, şifreniz ve kurtarma ifadenizden tarayıcınızda türetilir. Sunucu yalnızca asla okuyamayacağı şifreli metni saklar.',
       },
       {
         title: 'İş birliği, yine şifreli',
-        body: 'Fark yaratan özellik: uçtan uca şifrelemeden vazgeçmeden gerçek zamanlı düzenleme. Aktarıcı yalnızca opak, Ed25519 imzalı çerçevelerden oluşan bir akış görür — içeriğin tek bir baytını bile göremez.',
+        body: 'Uçtan uca şifrelemeden vazgeçmeden gerçek zamanlı düzenleme — aktarıcı opak, imzalı çerçeveleri yönlendirir, içeriği asla görmez.',
       },
       {
         title: 'Çalıştırması ve federe etmesi sizde',
-        body: 'Docker Compose ile tasarımı gereği kendi sunucunuzda çalışır. Federasyon sayesinde farklı bir Kutup sunucusundaki biriyle bir klasörü, iki arka uçtan hiçbiri düz metni görmeden paylaşabilirsiniz.',
+        body: 'Tek bir Docker Compose yığını. Klasörleri Kutup sunucuları arasında, hiçbir arka uç düz metni görmeden paylaşın.',
       },
     ],
     highlights: {
@@ -75,32 +74,32 @@ const tr: Dictionary = {
         {
           title: 'Sunucunun okuyamadığı dosyalar',
           alt: 'Kutup Drive — klasörler, yüklemeler ve depolama kotasıyla dosya tarayıcısı',
-          body: 'İç içe koleksiyonlar, sürükle-bırak yükleme, herkese açık paylaşım bağlantıları ve okuma/yükleme/silme izinleriyle kullanıcı bazlı klasör paylaşımları. Dosya adları, MIME türleri ve klasör yapısı istemci tarafında şifrelenir. Akışlı yükleme, çok GB’lik dosyaları bellekten uzak tutar. Depolama SeaweedFS (S3 uyumlu) üzerine kuruludur.',
+          body: 'İç içe klasörler, sürükle-bırak yükleme, paylaşım bağlantıları ve kullanıcı bazlı izinler. Dosya adları ve klasör yapısı da şifrelidir.',
         },
         {
           title: 'Canlı notlar ve kod',
           alt: 'Not düzenleyici — sürüm geçmişi kenar çubuklu CodeMirror',
-          body: 'Markdown, düz metin ve 20’den fazla kod dili için CodeMirror 6 + Yjs CRDT. Kullanıcı başına farkındalık rengiyle çok kullanıcılı imleç ve seçim görünürlüğü. Her düzenleme, AEAD zarfına sarılmış bir Yjs güncellemesidir — sunucuya yalnızca opak şifreli metin ulaşır.',
+          body: 'Markdown ve 20’den fazla kod dili için CodeMirror 6 + Yjs, canlı çok kullanıcılı imleçlerle. Her düzenleme sunucuya şifreli metin olarak ulaşır.',
         },
         {
           title: 'Ofis belgeleri, tamamen istemci tarafında',
           alt: 'Koşullu biçimlendirmeli tablo düzenleyici',
-          body: '.docx, .xlsx ve .pptx; CryptPad desenini kullanarak tamamen tarayıcıda çalışan OnlyOffice ile düzenlenir. Belge durumu sunucu tarafında asla çözülmez. Canlı hücre seçimi görünürlüğü, kullanıcı başına renkler, formüller, grafikler ve koşullu biçimlendirme.',
+          body: '.docx, .xlsx ve .pptx, tamamen tarayıcınızda çalışan OnlyOffice ile açılır. Canlı görünürlük, formüller, grafikler — sunucu tarafında asla çözülmez.',
         },
         {
           title: 'Beyaz tahtalar',
           alt: 'Excalidraw beyaz tahtası',
-          body: '.excalidraw dosyaları Excalidraw’da açılır; sekmeler arası eşitleme ve son-yazan-kazanır uzlaştırmasıyla — her şey gibi aynı uçtan uca şifreli zarfın içinde.',
+          body: 'Canlı eşitlenen Excalidraw tuvalleri — her şey gibi aynı şifreli zarfın içinde.',
         },
         {
           title: 'Her dosyada sürüm geçmişi',
           alt: 'Sürüm geçmişi kenar çubuğu',
-          body: 'Her kayıt, sürümlü bir anlık görüntü oluşturur. Herhangi bir düzenleyicide Geçmiş kenar çubuğunu açın, geriye gidin ve geri yükleyin. Adlandırılmış kayıtlar sonsuza dek saklanır; anonim kayıtlar zamanla silinir. Notlar, ofis ve beyaz tahtalar aynı altyapıyı paylaşır.',
+          body: 'Her kayıt bir anlık görüntüdür. Herhangi bir düzenleyicide Geçmiş kenar çubuğundan geriye gidin ve geri yükleyin.',
         },
         {
           title: 'Anahtarların sahibi sizsiniz',
           alt: 'Ayarlar — cihazlar ve görünürlük rengi',
-          body: 'Tek tek iptal edebileceğiniz cihaz başına Ed25519 anahtar çiftleriyle çoklu cihaz desteği. 24 kelimelik BIP39 kurtarma ifadesi, hesap kurtarmada ikinci faktör olarak da görev yapar. İsteğe bağlı TOTP 2FA. Seçtiğiniz görünürlük rengi tüm düzenleyicilerde sizi takip eder.',
+          body: 'İptal edebileceğiniz cihaz başına anahtarlar, 24 kelimelik kurtarma ifadesi ve isteğe bağlı 2FA. Hiçbir gizli bilgi sunucuya ulaşmaz.',
         },
       ],
     },
@@ -130,14 +129,7 @@ const tr: Dictionary = {
       title: 'Pragmatik, denetlenebilir bir teknoloji yığını',
     },
     ack: {
-      eyebrow: 'Omuzlarında yükseldiklerimiz',
-      title: 'Harika açık kaynak projelerle inşa edildi',
-      notes: [
-        'ortak ofis düzenlemesini sağlar',
-        'yalnızca istemcide şifreli ofis deseni',
-        'E2EE anahtar hiyerarşisi modeli',
-        'gömülü beyaz tahta + uzlaştırma',
-      ],
+      lead: 'Harika açık kaynak projelerle inşa edildi:',
     },
     cta: {
       title: 'Kendi şifreli Drive’ınızı bugün çalıştırın',
