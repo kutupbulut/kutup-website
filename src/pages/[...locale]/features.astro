@@ -93,9 +93,12 @@ const sectionMeta = [
           <div class="mt-3">
             <CodeBlock
               lang="sh"
-              code="go install github.com/kutupbulut/kutup/cmd/kutup@latest"
               copyLabel={t.copy.label}
               copiedLabel={t.copy.copied}
+              code={`git clone https://github.com/kutupbulut/kutup.git
+cd kutup
+cargo build --release -p kutup-cli
+install -m755 target/release/kutup ~/.local/bin/kutup`}
             />
           </div>
           <p class="mt-4 text-sm text-muted">{t.features.cli.installNote}</p>
@@ -107,7 +110,10 @@ const sectionMeta = [
               lang="sh"
               copyLabel={t.copy.label}
               copiedLabel={t.copy.copied}
-              code={`kutup login --server https://your.kutup.host
+              code={`kutup register --server https://your.kutup.host \\
+  --email you@example.com --username you
+kutup login --server https://your.kutup.host \\
+  --email you@example.com
 kutup ls
 kutup upload ./big-dataset.tar.gz <folder-id>
 kutup sync ./local-folder <folder-id> --watch

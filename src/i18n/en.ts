@@ -116,7 +116,7 @@ const en = {
         body: 'AEAD-encrypt + sign the update with a per-device Ed25519 key.',
       },
       relay: {
-        title: 'Go relay',
+        title: 'Rust relay',
         tag: 'ciphertext only',
         body: 'Verify the signature, route by file, persist and broadcast — bytes unchanged.',
       },
@@ -238,15 +238,15 @@ const en = {
       eyebrow: 'Command line',
       title: 'The same E2EE primitives, in your shell',
       subtitle:
-        'kutup is a Cobra-based CLI for login, ls, upload, download, sync, share, versions, devices, and 2FA — all end-to-end encrypted. The server only ever sees ciphertext.',
-      install: 'Install',
+        'kutup is a Rust CLI for register, login, ls, upload, download, sync, share, versions, devices, and 2FA — all end-to-end encrypted. The server only ever sees ciphertext.',
+      install: 'Build from source (Rust ≥ 1.91)',
       installNote:
-        'Tagged release binaries (Linux / macOS / Windows; amd64 + arm64) are published on GitHub Releases via goreleaser.',
+        'Tagged release binaries (Linux / macOS / Windows; amd64 + arm64) are published on GitHub Releases.',
       workflows: 'Common workflows',
       standoutTitle: 'The standout: > 2 GB uploads',
       // html: inline code
       standoutBody:
-        'The browser File API wedges the tab at multi-GB sizes. The CLI streams chunked stream-encryption (5 MB blocks) over Go’s <code>io.Reader</code>, so it pushes arbitrarily large files — ISOs, raw video, datasets — at a constant ~5 MB of memory. File size is bounded by disk, not RAM.',
+        'The browser File API wedges the tab at multi-GB sizes. The CLI streams chunked <code>crypto_secretstream</code> encryption (XChaCha20-Poly1305, 5 MB blocks) over a Rust reader, so it pushes arbitrarily large files — ISOs, raw video, datasets — at a constant ~5 MB of memory. File size is bounded by disk, not RAM.',
     },
     cta: {
       title: 'Ready to try it?',
@@ -294,10 +294,7 @@ const en = {
       title: 'Install the CLI',
       subtitle:
         'End-to-end encrypted file operations from your shell — including multi-GB uploads the browser can’t handle.',
-      withGo: 'With Go (≥ 1.22)',
-      // html: inline code
-      goNote: 'Ensure <code>$GOPATH/bin</code> is on your <code>$PATH</code>.',
-      fromSource: 'From source',
+      fromSource: 'Build from source (Rust ≥ 1.91)',
       // html: contains the releases link
       binaryNote:
         'Prefer a binary? Tagged builds for Linux / macOS / Windows (amd64 + arm64) are on <a href="{releases}" target="_blank" rel="noopener noreferrer">GitHub Releases ↗</a>.',
@@ -373,7 +370,7 @@ const en = {
         },
         {
           title: 'Hardening',
-          body: 'Change all <code>.env</code> defaults, expose only 80/443, generate <code>JWT_SECRET</code> with <code>openssl rand -hex 64</code>, and rotate the bootstrap admin.',
+          body: 'Change all <code>.env</code> defaults, expose only 80/443, and generate <code>JWT_SECRET</code> with <code>openssl rand -hex 64</code>. The bootstrap account is a protected break-glass admin — give it a strong password.',
         },
       ],
       // html: contains the docs link

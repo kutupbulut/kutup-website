@@ -33,8 +33,10 @@ S3_BUCKET=kutup-files
 # Public URL — used to build federation invite links
 SERVER_URL=https://kutup.example.com
 
-# Admin bootstrap: email:username:password triples, comma-separated
-ADMIN_ACCOUNTS=admin@example.com:admin:<strong-admin-password>`
+# Break-glass admin bootstrap — a single email:username:password triple.
+# This account can never be demoted, disabled, or deleted; promote any
+# further admins from inside the app.
+ADMIN_ACCOUNT=admin@example.com:admin:<strong-admin-password>`
 ---
 
 <Base locale={locale} title={t.selfHost.meta.title} description={t.selfHost.meta.description}>

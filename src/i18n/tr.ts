@@ -114,7 +114,7 @@ const tr: Dictionary = {
         body: 'Güncelleme AEAD ile şifrelenir ve cihaza özel Ed25519 anahtarıyla imzalanır.',
       },
       relay: {
-        title: 'Go aktarıcı',
+        title: 'Rust aktarıcı',
         tag: 'yalnızca şifreli metin',
         body: 'İmza doğrulanır, dosyaya göre yönlendirilir, kalıcı hale getirilir ve yayınlanır — baytlar değişmeden.',
       },
@@ -233,14 +233,14 @@ const tr: Dictionary = {
       eyebrow: 'Komut satırı',
       title: 'Aynı E2EE yapı taşları, kabuğunuzda',
       subtitle:
-        'kutup; login, ls, upload, download, sync, share, versions, devices ve 2FA için Cobra tabanlı bir CLI’dır — tamamı uçtan uca şifreli. Sunucu yalnızca şifreli metin görür.',
-      install: 'Kurulum',
+        'kutup; register, login, ls, upload, download, sync, share, versions, devices ve 2FA için Rust ile yazılmış bir CLI’dır — tamamı uçtan uca şifreli. Sunucu yalnızca şifreli metin görür.',
+      install: 'Kaynaktan derleme (Rust ≥ 1.91)',
       installNote:
-        'Etiketli sürüm ikilileri (Linux / macOS / Windows; amd64 + arm64) goreleaser ile GitHub Releases’te yayımlanır.',
+        'Etiketli sürüm ikilileri (Linux / macOS / Windows; amd64 + arm64) GitHub Releases’te yayımlanır.',
       workflows: 'Yaygın iş akışları',
       standoutTitle: 'Öne çıkan: > 2 GB yüklemeler',
       standoutBody:
-        'Tarayıcının File API’si çok GB’lik boyutlarda sekmeyi kilitler. CLI ise parçalı akış şifrelemesini (5 MB bloklar) Go’nun <code>io.Reader</code>’ı üzerinden akıtır; ISO’lar, ham video, veri kümeleri gibi istediğiniz kadar büyük dosyaları sabit ~5 MB bellekle gönderir. Dosya boyutunu RAM değil disk sınırlar.',
+        'Tarayıcının File API’si çok GB’lik boyutlarda sekmeyi kilitler. CLI ise parçalı <code>crypto_secretstream</code> şifrelemesini (XChaCha20-Poly1305, 5 MB bloklar) bir Rust okuyucusu üzerinden akıtır; ISO’lar, ham video, veri kümeleri gibi istediğiniz kadar büyük dosyaları sabit ~5 MB bellekle gönderir. Dosya boyutunu RAM değil disk sınırlar.',
     },
     cta: {
       title: 'Denemeye hazır mısınız?',
@@ -288,10 +288,7 @@ const tr: Dictionary = {
       title: 'CLI’yı kurun',
       subtitle:
         'Kabuğunuzdan uçtan uca şifreli dosya işlemleri — tarayıcının kaldıramadığı çok GB’lik yüklemeler dahil.',
-      withGo: 'Go ile (≥ 1.22)',
-      goNote:
-        '<code>$GOPATH/bin</code> dizininin <code>$PATH</code> üzerinde olduğundan emin olun.',
-      fromSource: 'Kaynaktan derleme',
+      fromSource: 'Kaynaktan derleme (Rust ≥ 1.91)',
       binaryNote:
         'İkili dosya mı tercih edersiniz? Linux / macOS / Windows (amd64 + arm64) için etiketli derlemeler <a href="{releases}" target="_blank" rel="noopener noreferrer">GitHub Releases’te ↗</a>.',
     },
@@ -361,7 +358,7 @@ const tr: Dictionary = {
         },
         {
           title: 'Sıkılaştırma',
-          body: 'Tüm <code>.env</code> varsayılanlarını değiştirin, yalnızca 80/443’ü dışarı açın, <code>JWT_SECRET</code> değerini <code>openssl rand -hex 64</code> ile üretin ve bootstrap yöneticisini değiştirin.',
+          body: 'Tüm <code>.env</code> varsayılanlarını değiştirin, yalnızca 80/443’ü dışarı açın ve <code>JWT_SECRET</code> değerini <code>openssl rand -hex 64</code> ile üretin. Bootstrap hesabı korumalı bir acil durum (break-glass) yöneticisidir — ona güçlü bir şifre verin.',
         },
       ],
       docsNote:
