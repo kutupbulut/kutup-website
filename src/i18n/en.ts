@@ -45,8 +45,7 @@ const en = {
     hero: {
       badge: 'End-to-end encrypted · self-hosted · real-time collab',
       // html: accent span around the highlighted phrase
-      title:
-        'The self-hosted Drive your server<span class="text-ice"> can’t read</span>.',
+      title: 'The end-to-end encrypted <span class="text-ice">Drive</span>',
       sub: 'An end-to-end encrypted drive you run yourself. Files, notes, office docs, and whiteboards — everything is encrypted in your browser before it leaves the page.',
       ctaSelfHost: 'Self-host Kutup',
       ctaDownload: 'Download apps',
